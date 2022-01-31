@@ -52,9 +52,10 @@ namespace BookRecomendationDataAccessLayer
             }
 
         }
-
-        public void SaveReviewForBookToDB(ReviewDTO revObj)
+        
+        public int SaveReviewForBookToDB()
         {
+            ReviewDTO revObj = new ReviewDTO(); 
             try
             {
                 cmdObj = new SqlCommand();
@@ -64,6 +65,18 @@ namespace BookRecomendationDataAccessLayer
                 cmdObj.Parameters.AddWithValue("@book_isbn", revObj.Book_ISBN);
                 cmdObj.Parameters.AddWithValue("@rating", revObj.Review);
                 cmdObj.Parameters.AddWithValue("@review1", revObj.Rating);
+                SqlParameter returnvalue = new SqlParameter();
+                returnvalue.Direction = ParameterDirection.ReturnValue;
+                returnvalue.SqlDbType = SqlDbType.Int;
+                cmdObj.Parameters.Add(returnvalue);
+                SqlParameter outputValue = new SqlParameter();
+                outputValue.Direction = ParameterDirection.Output;
+                outputValue.SqlDbType = SqlDbType.Int;
+                outputValue.ParameterName = "@book_isbn";
+                cmdObj.Parameters.Add(outputValue);
+                connecObj.Open();
+                cmdObj.ExecuteNonQuery();
+                return Convert.ToInt32(returnvalue.Value);
 
 
 

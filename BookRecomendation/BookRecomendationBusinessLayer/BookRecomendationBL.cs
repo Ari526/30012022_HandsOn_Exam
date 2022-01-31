@@ -27,9 +27,12 @@ namespace BookRecomendationBusinessLayer
         }
 
 
-        public void AddReviewForBook()
+        public int AddReviewForBook()
         {
-          
+            int add = dalObj.SaveReviewForBookToDB();
+            return add;
+
+
         }
       
     }
