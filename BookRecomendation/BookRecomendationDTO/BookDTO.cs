@@ -8,6 +8,11 @@ namespace BookRecomendationDTO
 {
     public class BookDTO
     {
+        public int Book_ISBN { get; set; }
+        public int rating { get; set; }
+
+        public string review { get; set; }    
+
 
     }
 }
