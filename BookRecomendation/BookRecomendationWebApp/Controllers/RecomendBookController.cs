@@ -28,8 +28,29 @@ namespace BookRecomendationWebApp.Controllers
 
         }
 
-        public void DisplayResultsUsingWebAPI()
+        public ActionResult DisplayResultsUsingWebAPI()
         {
+            try
+            {
+                BookRecomendationBL blObj = new BookRecomendationBL();
+                List<ReviewDTO> lstofReview = blObj.ShowReviewsForBook();
+                List<BookViewModel> Mvc = new List<BookViewModel>();
+                foreach (var review in lstofReview)
+                {
+                    BookViewModel newMvc = new BookViewModel();
+                    newMvc.Book_ISBN = review.Book_ISBN;
+                    newMvc.Review = review.Review;
+                    newMvc.Rating = review.Rating;
+                    lstofReview.Add(review);
+
+                }
+                return View(lstofReview);
+            }
+            catch (Exception)
+            {
+
+                return View("Error");
+            }
         }
     }
 }
